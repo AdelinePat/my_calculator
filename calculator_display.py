@@ -31,52 +31,55 @@ def cursor_line(y,x=0):
     coordinate = "\033[" + str(y) + ";" + str(x) + "H"
     return coordinate
 
+def clear_print():
+    print(f"{cursor["heavy_clear"]}",
+        sep="", end="", flush=True)
+
 def setup_print():
     print(
-        f"{cursor["heavy_clear"]}",
-        f"{cursor_line(1)}{cursor['light_clear']} {"":_^36}",
-        f"{cursor_line(2)}{cursor['light_clear']}/{" ":^36}\ ",
-        f"{cursor_line(4)}{cursor['light_clear']}\{"":_^36}/",
-        f"{cursor_line(8)}{cursor['light_clear']}\{"":_^36}/",
+        f"{cursor_line(1)} {"":_^42}",
+        f"{cursor_line(2)}/{" ":^42}{cursor['bold_start']}|{cursor['bold_dim_end']}",
+        f"{cursor_line(4)}\{"":_^42}{cursor['bold_start']}|{cursor['bold_dim_end']}",
+        f"{cursor_line(5)}/{" ":^42}{cursor['bold_start']}|{cursor['bold_dim_end']}",
+        f"{cursor_line(8)}\{"":_^42}{cursor['bold_start']}|{cursor['bold_dim_end']}",
+        f"{cursor_line(9)}/{" ":^42}{cursor['bold_start']}|{cursor['bold_dim_end']}",
+        f"{cursor_line(10)}{cursor['bold_start']}⎸{cursor['bold_dim_end']}",
+        f"{"":_^42}{cursor['bold_start']}|{cursor['bold_dim_end']}",
         sep="", end="", flush=True
         )
 
 def result_print(calc_result):
     print(
-        f"{cursor_line(3)}{cursor['bold_start']}⎸Résultat :{str(calc_result)[:25]:>25} ⎹{cursor['bold_dim_end']}",
+        f"{cursor_line(3)}{cursor['bold_start']}⎸Résultat : {float(calc_result):30,.6} |{cursor['bold_dim_end']}",
         sep="", end="", flush=True)
 
-def calc_terminal_print(calc_line_1_number, calc_line_1_type, calc_line_2):
-    print(
-        f"{cursor_line(5)}/{cursor['underline_start']}",
-        f"{print_fr_value[calc_line_1_number] + print_fr_type[calc_line_1_type][:36]:_^36}",
-        f"{cursor['underline_end']}\ ",sep="", end="", flush=True)
+def calc_terminal_print(number,operator):
     print(
         f"{cursor_line(6)}{cursor['bold_start']}⎸{cursor['bold_dim_end']}",
-        f"{cursor['dim_start']}{calc_line_2[:36]:<36}{cursor['bold_dim_end']}",
-        f"{cursor['bold_start']}⎹{cursor['bold_dim_end']}",
+        f"{cursor['dim_start']}{float(number):39,.6} {operator} {cursor['bold_dim_end']}",
+        f"{cursor['bold_start']}|{cursor['bold_dim_end']}",
         sep="", end="", flush=True)
     print(f"{cursor_line(7)}{cursor['bold_start']}⎸{cursor['bold_dim_end']}",
-        f"{" ":<36}",
-        f"{cursor['bold_start']}⎹{cursor['bold_dim_end']}",
+        f"{" ":<42}",
+        f"{cursor['bold_start']}|{cursor['bold_dim_end']}",
         sep="", end="", flush=True)
     return input(cursor_line(7,2))
 
 def error_onlynumber_print():
     print(
         f"{cursor_line(9)}/{cursor['red_start']}{cursor['bold_start']}",
-        f"{"Insérez une valeur numérique !"[:36]:^36}",
-        f"{cursor['style_finish']}\{cursor_line(10)}\{"":_^36}/",
+        f"{"Insérez une valeur numérique !"[:42]:^42}",
+        f"{cursor['style_finish']}|",
         sep="", end="", flush=True)
 
 def error_operators_print():
     print(
         f"{cursor_line(9)}/{cursor['red_start']}{cursor['bold_start']}",
-        f"{"Insérez un opérateur (+-/*) !"[:36]:^36}",
-        f"{cursor['style_finish']}\{cursor_line(10)}\{"":_^36}/",
+        f"{"Insérez un opérateur (+-/*) !"[:42]:^42}",
+        f"{cursor['style_finish']}",
         sep="", end="", flush=True)
 
 def error_clear_print():
     print(
-        f"{cursor_line(9)}{"":^38}{cursor_line(10)}{"":^38}",
+        f"{cursor_line(9)}{cursor['light_clear']}/{" ":^42}|",
         sep="", end="", flush=True)
