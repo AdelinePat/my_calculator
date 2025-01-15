@@ -5,8 +5,9 @@
 print_fr_value = ("Premier","Deuxième","Troisième",)
 print_fr_type = (" nombre"," opérateur")
 
-calc_padding = 10
+calc_padding = 15
 calc_width = 32
+historic_width = 32
 
 cursor = {
     "line_1" : "\033[1;0H",
@@ -28,10 +29,15 @@ cursor = {
     "bold_start" : "\033[1m",
     "dim_start" : "\033[2m",
     "bold_dim_end" : "\033[22m",
+
     "underline_start" : "\033[4m",
     "underline_end" : "\033[24m",
 
+    "bold_pink_start" : "\033[1;38;5;13m",
+    "bold_green_start" : "\033[1;38;5;82m",
     "red_start" : "\033[31m",
+    "white_start" : "\033[37m",
+    "color_end" : "\033[39m",
     "style_finish" : "\033[0m"
 }
 def cursor_line(y,x=0):
@@ -44,56 +50,61 @@ def clear_print():
 
 def setup_print():
     print(
-        f"{cursor_line(1)}{" ":^{calc_padding}} {"":_^{calc_width}}",
-        f"{cursor_line(2)}{" ":^{calc_padding}}/{" ":^{calc_width}}{cursor['bold_start']}|{cursor['bold_dim_end']}",
-        f"{cursor_line(4)}{" ":^{calc_padding}}\\{"":_^{calc_width}}{cursor['bold_start']}|{cursor['bold_dim_end']}",
-        f"{cursor_line(5)}{" ":^{calc_padding}}/{" ":^{calc_width}}{cursor['bold_start']}|{cursor['bold_dim_end']}",
-        f"{cursor_line(8)}{" ":^{calc_padding}}\\{"":_^{calc_width}}{cursor['bold_start']}|{cursor['bold_dim_end']}",
-        f"{cursor_line(9)}{" ":^{calc_padding}}/{" ":^{calc_width}}{cursor['bold_start']}|{cursor['bold_dim_end']}",
-        f"{cursor_line(10)}{" ":^{calc_padding}}{cursor['bold_start']}⎸{cursor['bold_dim_end']}",
-        f"{"":_^{calc_width}}{cursor['bold_start']}|{cursor['bold_dim_end']}",
-        sep="", end="", flush=True
+        f"{cursor['bold_pink_start']}",
+        f"{cursor_line(1)}{" ":^{calc_padding}} {"":_^{calc_width+1+historic_width}}",
+        f"{cursor_line(2)}{" ":^{calc_padding}}/{" ":^{calc_width}}|{" ":^{historic_width}}\\",
+        f"{cursor_line(3)}{" ":^{calc_padding}}⎸",
+        f"{cursor['bold_green_start']}{" Résultat :":<{calc_width}}",
+        f"{cursor['bold_pink_start']}|{" ":^{historic_width}}⎹",
+        f"{cursor_line(4)}{" ":^{calc_padding}}⎸{" ":^{calc_width}}|{" ":^{historic_width}}⎹",
+        f"{cursor_line(5)}{" ":^{calc_padding}}⎸{" ":^{calc_width}}|{"":_^{historic_width}}⎹",
+        f"{cursor_line(6)}{" ":^{calc_padding}}\\{"":_^{calc_width}}|{" ":^{historic_width}}⎹",
+        f"{cursor_line(7)}{" ":^{calc_padding}}/{" ":^{calc_width}}|{" ":^{historic_width}}⎹",
+        f"{cursor_line(8)}{" ":^{calc_padding}}⎸{" ":^{calc_width}}|{"":_^{historic_width}}⎹",
+        f"{cursor_line(9)}{" ":^{calc_padding}}⎸{" ":^{calc_width}}|{" ":^{historic_width}}⎹",
+        f"{cursor_line(10)}{" ":^{calc_padding}}⎸{" ":^{calc_width}}|{" ":^{historic_width}}⎹",
+        f"{cursor_line(11)}{" ":^{calc_padding}}⎸",
+        f"{cursor['white_start']}{"Entrez votre calcul":^{calc_width}}",
+        f"{cursor['bold_pink_start']}|{"":_^{historic_width}}⎹",
+        f"{cursor_line(12)}{" ":^{calc_padding}}\\{"":_^{calc_width}}|{" ":^{historic_width}}⎹",
+        f"{cursor_line(13)}{" ":^{calc_padding}}/{" ":^{calc_width}}|{" ":^{historic_width}}⎹",
+        f"{cursor_line(14)}{" ":^{calc_padding}}⎸{" ":^{calc_width}}|{" ":^{historic_width}}⎹",
+        f"{cursor_line(15)}{" ":^{calc_padding}}\\{"":_^{calc_width}}|{"":_^{historic_width}}/",
+        f"{cursor['style_finish']}", sep="", end="", flush=True
         )
+
+def historic_print():
+    print("")
 
 def result_print(calc_result):
     print(
-        f"{cursor_line(3)}{" ":^{calc_padding}}{cursor['bold_start']}⎸Résultat : {float(calc_result):20,.6} |{cursor['bold_dim_end']}",
+        f"{cursor_line(5, calc_padding+2)}{cursor['bold_green_start']}",
+        f"{float(calc_result):{calc_width-3},}\
+{cursor['style_finish']}".replace(","," ").replace(".",","),
         sep="", end="", flush=True)
 
-def calc_terminal_print(last_calcul=""):
+def calc_terminal_print(last_input):
     print(
-        f"{cursor_line(6)}{" ":^{calc_padding}}{cursor['bold_start']}⎸{cursor['bold_dim_end']}",
-        f"{cursor['dim_start']}{str(last_calcul):>{calc_width-3}} {"=" if last_calcul != "" else ""} {cursor['bold_dim_end']}",
-        f"{cursor['bold_start']}|{cursor['bold_dim_end']}",
+        f"{cursor_line(8, calc_padding+2)}{cursor['dim_start']}",
+        f"{last_input[:calc_width-5]:>{calc_width-5}}",
+        f" {"=" if last_input != "" else " "}{cursor['style_finish']}",
+
         sep="", end="", flush=True)
-    print(f"{cursor_line(7)}{" ":^{calc_padding}}{cursor['bold_start']}⎸{cursor['bold_dim_end']}",
-        f"{" ":<{calc_width}}",
-        f"{cursor['bold_start']}|{cursor['bold_dim_end']}",
-        sep="", end="", flush=True)
-    return input(cursor_line(7,calc_padding+3))
+    return input(cursor_line(9,calc_padding+4))
 
 def error_onlynumber_print():
     print(
-        f"{cursor_line(9)}{" ":^{calc_padding}}/{cursor['red_start']}{cursor['bold_start']}",
-        f"{"Insérez une valeur numérique !":^{calc_width}}",
-        f"{cursor['style_finish']}|",
-        sep="", end="", flush=True)
+        f"{cursor_line(15,calc_padding+2)}{cursor['bold_red_start']}",
+        f"{"Insérez un calcul !":^{calc_width}}",
+        f"{cursor['style_finish']}", sep="", end="", flush=True)
 
 def error_divisionbyzero_print():
     print(
-        f"{cursor_line(9)}{" ":^{calc_padding}}/{cursor['red_start']}{cursor['bold_start']}",
-        f"{"Impossible de diviser par 0 !":^{calc_width}}",
-        f"{cursor['style_finish']}|",
-        sep="", end="", flush=True)
-
-def error_operators_print():
-    print(
-        f"{cursor_line(9)}{" ":^{calc_padding}}/{cursor['red_start']}{cursor['bold_start']}",
-        f"{"Insérez un opérateur (+-/*) !":^{calc_width}}",
-        f"{cursor['style_finish']}",
-        sep="", end="", flush=True)
+        f"{cursor_line(15,calc_padding+2)}{" ":^{calc_padding}}{cursor['bold_start']}",
+        f"⎸{cursor['red_start']}{"Impossible de diviser par 0 !":^{calc_width}}",
+        f"{cursor['style_finish']}", sep="", end="", flush=True)
 
 def error_clear_print():
     print(
-        f"{cursor_line(9)}{cursor['line_clear']}/{" ":^{calc_width}}|",
+        f"{cursor_line(15,calc_padding+1)}{" ":^{calc_width}}",
         sep="", end="", flush=True)
