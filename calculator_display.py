@@ -46,9 +46,9 @@ def setup_print():
     print(
         f"{cursor_line(1)}{" ":^{calc_padding}} {"":_^{calc_width}}",
         f"{cursor_line(2)}{" ":^{calc_padding}}/{" ":^{calc_width}}{cursor['bold_start']}|{cursor['bold_dim_end']}",
-        f"{cursor_line(4)}{" ":^{calc_padding}}\{"":_^{calc_width}}{cursor['bold_start']}|{cursor['bold_dim_end']}",
+        f"{cursor_line(4)}{" ":^{calc_padding}}\\{"":_^{calc_width}}{cursor['bold_start']}|{cursor['bold_dim_end']}",
         f"{cursor_line(5)}{" ":^{calc_padding}}/{" ":^{calc_width}}{cursor['bold_start']}|{cursor['bold_dim_end']}",
-        f"{cursor_line(8)}{" ":^{calc_padding}}\{"":_^{calc_width}}{cursor['bold_start']}|{cursor['bold_dim_end']}",
+        f"{cursor_line(8)}{" ":^{calc_padding}}\\{"":_^{calc_width}}{cursor['bold_start']}|{cursor['bold_dim_end']}",
         f"{cursor_line(9)}{" ":^{calc_padding}}/{" ":^{calc_width}}{cursor['bold_start']}|{cursor['bold_dim_end']}",
         f"{cursor_line(10)}{" ":^{calc_padding}}{cursor['bold_start']}⎸{cursor['bold_dim_end']}",
         f"{"":_^{calc_width}}{cursor['bold_start']}|{cursor['bold_dim_end']}",
@@ -60,10 +60,10 @@ def result_print(calc_result):
         f"{cursor_line(3)}{" ":^{calc_padding}}{cursor['bold_start']}⎸Résultat : {float(calc_result):20,.6} |{cursor['bold_dim_end']}",
         sep="", end="", flush=True)
 
-def calc_terminal_print(number,operator):
+def calc_terminal_print(last_calcul=""):
     print(
         f"{cursor_line(6)}{" ":^{calc_padding}}{cursor['bold_start']}⎸{cursor['bold_dim_end']}",
-        f"{cursor['dim_start']}{float(number):29,.6} {operator} {cursor['bold_dim_end']}",
+        f"{cursor['dim_start']}{str(last_calcul):>{calc_width-3}} {"=" if last_calcul != "" else ""} {cursor['bold_dim_end']}",
         f"{cursor['bold_start']}|{cursor['bold_dim_end']}",
         sep="", end="", flush=True)
     print(f"{cursor_line(7)}{" ":^{calc_padding}}{cursor['bold_start']}⎸{cursor['bold_dim_end']}",
