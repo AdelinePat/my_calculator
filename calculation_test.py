@@ -18,8 +18,6 @@ def add_first_operand(clean_input):
 clean_input = input_user()
 # if clean_input != None:
 
-
-
 def update_operation(mylist, operator_index,result):
     mylist.insert(operator_index+2, result)
     mylist.pop(operator_index+1)
@@ -50,16 +48,15 @@ def calculation(operation):
         # print(f"list après pop = {operation}")
 
         result = calculation(operation)
-
-        
         # print(result)
-
     except ZeroDivisionError as message:
         print(message)
-        sys.exit(1)
+        return input_user()
+        # sys.exit(1)
     except Exception:
         pass
         
+
     try:
         modulo_index = operation.index("%")
         if operation[modulo_index+1] == "0":
@@ -69,14 +66,12 @@ def calculation(operation):
         update_operation(operation, modulo_index, result)
         # print(f"list après pop = {operation}")
 
-        result = calculation(operation)
-
-        
+        result = calculation(operation)        
         # print(result)
-
     except ZeroDivisionError as message:
         print(message)
-        sys.exit(1)
+        return input_user()
+        # sys.exit(1)
     except Exception:
         pass
     
@@ -84,7 +79,6 @@ def calculation(operation):
         if operation.index("+") < operation.index("-"):
             addition_index = operation.index("+")
             result = float(operation[addition_index-1])+float(operation[addition_index+1])
-
             update_operation(operation, addition_index, result)
             # print(f"list après pop = {operation}")
 
