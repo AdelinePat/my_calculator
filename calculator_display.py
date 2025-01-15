@@ -1,5 +1,12 @@
+# import calculator_display as display
+# cursor = display.cursor
+# cursor_line = display.cursor_line
+
 print_fr_value = ("Premier","Deuxième","Troisième",)
 print_fr_type = (" nombre"," opérateur")
+
+calc_padding = 10
+calc_width = 32
 
 cursor = {
     "line_1" : "\033[1;0H",
@@ -37,49 +44,56 @@ def clear_print():
 
 def setup_print():
     print(
-        f"{cursor_line(1)} {"":_^42}",
-        f"{cursor_line(2)}/{" ":^42}{cursor['bold_start']}|{cursor['bold_dim_end']}",
-        f"{cursor_line(4)}\{"":_^42}{cursor['bold_start']}|{cursor['bold_dim_end']}",
-        f"{cursor_line(5)}/{" ":^42}{cursor['bold_start']}|{cursor['bold_dim_end']}",
-        f"{cursor_line(8)}\{"":_^42}{cursor['bold_start']}|{cursor['bold_dim_end']}",
-        f"{cursor_line(9)}/{" ":^42}{cursor['bold_start']}|{cursor['bold_dim_end']}",
-        f"{cursor_line(10)}{cursor['bold_start']}⎸{cursor['bold_dim_end']}",
-        f"{"":_^42}{cursor['bold_start']}|{cursor['bold_dim_end']}",
+        f"{cursor_line(1)}{" ":^{calc_padding}} {"":_^{calc_width}}",
+        f"{cursor_line(2)}{" ":^{calc_padding}}/{" ":^{calc_width}}{cursor['bold_start']}|{cursor['bold_dim_end']}",
+        f"{cursor_line(4)}{" ":^{calc_padding}}\{"":_^{calc_width}}{cursor['bold_start']}|{cursor['bold_dim_end']}",
+        f"{cursor_line(5)}{" ":^{calc_padding}}/{" ":^{calc_width}}{cursor['bold_start']}|{cursor['bold_dim_end']}",
+        f"{cursor_line(8)}{" ":^{calc_padding}}\{"":_^{calc_width}}{cursor['bold_start']}|{cursor['bold_dim_end']}",
+        f"{cursor_line(9)}{" ":^{calc_padding}}/{" ":^{calc_width}}{cursor['bold_start']}|{cursor['bold_dim_end']}",
+        f"{cursor_line(10)}{" ":^{calc_padding}}{cursor['bold_start']}⎸{cursor['bold_dim_end']}",
+        f"{"":_^{calc_width}}{cursor['bold_start']}|{cursor['bold_dim_end']}",
         sep="", end="", flush=True
         )
 
 def result_print(calc_result):
     print(
-        f"{cursor_line(3)}{cursor['bold_start']}⎸Résultat : {float(calc_result):30,.6} |{cursor['bold_dim_end']}",
+        f"{cursor_line(3)}{" ":^{calc_padding}}{cursor['bold_start']}⎸Résultat : {float(calc_result):20,.6} |{cursor['bold_dim_end']}",
         sep="", end="", flush=True)
 
 def calc_terminal_print(number,operator):
     print(
-        f"{cursor_line(6)}{cursor['bold_start']}⎸{cursor['bold_dim_end']}",
-        f"{cursor['dim_start']}{float(number):39,.6} {operator} {cursor['bold_dim_end']}",
+        f"{cursor_line(6)}{" ":^{calc_padding}}{cursor['bold_start']}⎸{cursor['bold_dim_end']}",
+        f"{cursor['dim_start']}{float(number):29,.6} {operator} {cursor['bold_dim_end']}",
         f"{cursor['bold_start']}|{cursor['bold_dim_end']}",
         sep="", end="", flush=True)
-    print(f"{cursor_line(7)}{cursor['bold_start']}⎸{cursor['bold_dim_end']}",
-        f"{" ":<42}",
+    print(f"{cursor_line(7)}{" ":^{calc_padding}}{cursor['bold_start']}⎸{cursor['bold_dim_end']}",
+        f"{" ":<{calc_width}}",
         f"{cursor['bold_start']}|{cursor['bold_dim_end']}",
         sep="", end="", flush=True)
-    return input(cursor_line(7,2))
+    return input(cursor_line(7,calc_padding+3))
 
 def error_onlynumber_print():
     print(
-        f"{cursor_line(9)}/{cursor['red_start']}{cursor['bold_start']}",
-        f"{"Insérez une valeur numérique !"[:42]:^42}",
+        f"{cursor_line(9)}{" ":^{calc_padding}}/{cursor['red_start']}{cursor['bold_start']}",
+        f"{"Insérez une valeur numérique !":^{calc_width}}",
+        f"{cursor['style_finish']}|",
+        sep="", end="", flush=True)
+
+def error_divisionbyzero_print():
+    print(
+        f"{cursor_line(9)}{" ":^{calc_padding}}/{cursor['red_start']}{cursor['bold_start']}",
+        f"{"Impossible de diviser par 0 !":^{calc_width}}",
         f"{cursor['style_finish']}|",
         sep="", end="", flush=True)
 
 def error_operators_print():
     print(
-        f"{cursor_line(9)}/{cursor['red_start']}{cursor['bold_start']}",
-        f"{"Insérez un opérateur (+-/*) !"[:42]:^42}",
+        f"{cursor_line(9)}{" ":^{calc_padding}}/{cursor['red_start']}{cursor['bold_start']}",
+        f"{"Insérez un opérateur (+-/*) !":^{calc_width}}",
         f"{cursor['style_finish']}",
         sep="", end="", flush=True)
 
 def error_clear_print():
     print(
-        f"{cursor_line(9)}{cursor['light_clear']}/{" ":^42}|",
+        f"{cursor_line(9)}{cursor['line_clear']}/{" ":^{calc_width}}|",
         sep="", end="", flush=True)
