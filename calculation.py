@@ -15,7 +15,7 @@ def add_first_operand(clean_input):
             # print(f"list operation operateur = {clean_input}")
             return clean_input
     
-clean_input = input_user()
+# clean_input = input_user()
 # if clean_input != None:
 
 def update_operation(mylist, operator_index,result):
@@ -145,6 +145,3 @@ def sub_operation_treatment(operation):
         # operation.insert(start_index)
     # return operation
 
-sub_operation_treatment(clean_input)
-final_result = calculation(clean_input)
-print(f"résultat final : {final_result}")

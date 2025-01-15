@@ -1,6 +1,7 @@
 import re, sys
-def input_user():
-    input_string = input("Veuillez entrer votre opération : ").replace(" ", "")
+def input_user(input_string):
+    # input_string = input("Veuillez entrer votre opération : ").replace(" ", "")
+    
     clean_string = re.findall(r'(?:[0-9.]+)|(?:[+/*%\(\)-])', input_string) #TODO /!\ this regex accept a number 10.4.5.6.6
     # clean_string = re.findall(r'((?:[0-9]+).(?:[0-9]+))|(?:[+/*%-])', input_string) #VERSION 2
     # clean_string = re.findall(r'(\d+\.\d+)|(?:[0-9]+)|(?:[+/*%-])', input_string)
