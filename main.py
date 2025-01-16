@@ -1,8 +1,8 @@
 import calculator_display as display
 cursor = display.cursor
 cursor_line = display.cursor_line
-from input import input_user as configure_input
-from calculation import add_first_operand, update_operation, calculation, sub_operation_treatment
+from operation_list import configure_input, add_first_operand, update_operation
+from launch_operations import calculation, sub_operation_treatment
 
 def main():
     historic = [["",""],["",""],["",""],["",""],["",""],["",""],["",""],["",""],["",""],["",""]]

@@ -1,7 +1,7 @@
 from operation_list import configure_input, add_first_operand, update_operation
 from operations import multiplication, division, modulo, addition, soustraction, euclidean
 
-def calculation(operation):
+def calculation(operation): # operation is operation_list
     
     while len(operation) > 1:
         
@@ -33,6 +33,7 @@ Search () , create a sub-list from inside parenthesis
 Calculate operations inside sub-list, insert result inside original-list
 Remove all items inside sub-list + parenthesis from original-list
 """
+
 def sub_operation_treatment(operation):
     while "(" in operation and ")" in operation:
         start_index = operation.index("(")
