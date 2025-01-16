@@ -1,22 +1,17 @@
 import sys
 from input import input_user
+import calculator_display as display
 
 def add_first_operand(clean_input):
     try:
         test = float(clean_input[0])
-        # print(f"list operation = {clean_input}")
-        return clean_input     
+        return clean_input
     except Exception:
         if clean_input[0] != "+" and clean_input[0] != "-":
-             print(f"Vous ne pouvez pas commencer votre opération par {clean_input[0]}")
-             return None
+            return None
         else:
             clean_input.insert(0, "0")
-            # print(f"list operation operateur = {clean_input}")
             return clean_input
-    
-# clean_input = input_user()
-# if clean_input != None:
 
 def update_operation(mylist, operator_index,result):
     mylist.insert(operator_index+2, result)
@@ -25,7 +20,8 @@ def update_operation(mylist, operator_index,result):
     mylist.pop(operator_index-1)
 
 def calculation(operation):
-    operation = add_first_operand(operation)
+    if add_first_operand(operation) == None:
+        return "error_1st_operant"
 
     try:
         multiplication_index = operation.index("*")
