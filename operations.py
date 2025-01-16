@@ -20,16 +20,9 @@ def division(operation):
 
 def modulo(operation):
     modulo_index = operation.index("%")
-    try:
-        if operation[modulo_index+1] == "0":
-            raise ZeroDivisionError("La division par 0 est impossible")
-        result = float(operation[modulo_index-1])%float(operation[modulo_index+1])
-        update_operation(operation, modulo_index, result)   
-        return result
-        
-    except ZeroDivisionError as message:
-        print(message)
-        return configure_input(input("Veuillez entrer votre opération : "))
+    result = float(operation[modulo_index-1])%float(operation[modulo_index+1])
+    update_operation(operation, modulo_index, result)   
+    return result
     
 def euclidean(operation):
     euclidean_index = operation.index("//") 

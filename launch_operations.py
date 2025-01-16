@@ -12,7 +12,7 @@ def calculation(operation): # operation is operation_list
         while "*" in operation or "/" in operation or "%" in operation or "//" in operation:
             for element in operation:
                 match element:
-                    case "*" | "x" | "×":
+                    case "*":
                         result = multiplication(operation)
 
                     case "//":
@@ -25,7 +25,7 @@ def calculation(operation): # operation is operation_list
                             print(message)
                             return calculation(configure_input(display.calc_input_data_print("")))
                         
-                    case "/" | "÷":
+                    case "/":
                         try:
                             if operation[operation.index(element)+1] == "0":
                                 raise ZeroDivisionError(display.error_divisionbyzero_print())
@@ -34,7 +34,7 @@ def calculation(operation): # operation is operation_list
                             print(message)
                             return calculation(configure_input(display.calc_input_data_print("")))
                     
-                    case "%" | "":
+                    case "%":
                         try:
                             if operation[operation.index(element)+1] == "0":
                                 raise ZeroDivisionError(display.error_divisionbyzero_print())
@@ -43,12 +43,13 @@ def calculation(operation): # operation is operation_list
                             print(message)
                             return calculation(configure_input(display.calc_input_data_print("")))
 
+
         while "+" in operation or "-" in operation:
             for element in operation:
                 match element:
                     case "+":
                         result = addition(operation)
-                    case "-" | "–":
+                    case "-":
                         result = soustraction(operation)
     return result
 
