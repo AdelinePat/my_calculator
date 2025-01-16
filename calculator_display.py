@@ -236,3 +236,19 @@ def error_clear_print():
     print(
         f"{cursor_line(15,calc_padding_left+1)}{" ":^{calc_width+1+historic_width}}",
         sep="", end="", flush=True)
+    
+
+def error_incorrect_input_print(element):
+
+    message = f"Votre entrée {element} est incorrecte !"
+    print(
+        f"{cursor_line(15,calc_padding_left+2)}{cursor['error_message_style_start']}",
+        f"{message:^{calc_width+1+historic_width}}",
+        f"{cursor['style_finish']}", sep="", end="", flush=True)
+    
+
+def error_multiple_operators_print():
+    print(
+        f"{cursor_line(15,calc_padding_left+2)}{cursor['error_message_style_start']}",
+        f"{"Vous avez 2 opérateurs consécutifs !":^{calc_width+1+historic_width}}",
+        f"{cursor['style_finish']}", sep="", end="", flush=True)

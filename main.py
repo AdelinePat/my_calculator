@@ -6,7 +6,7 @@ from launch_operations import calculation, sub_operation_treatment
 
 def main():
     historic = [["",""],["",""],["",""],["",""],["",""],["",""],["",""],["",""],["",""],["",""]]
-    last_input = ""
+    last_input = "                                          "
     display.clear_print()
     display.setup_printable_fields()
     while True:

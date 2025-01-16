@@ -1,5 +1,7 @@
 from operation_list import configure_input, add_first_operand, update_operation
 from operations import multiplication, division, modulo, addition, soustraction, euclidean
+import calculator_display as display
+
 
 def calculation(operation): # operation is operation_list
     
@@ -12,12 +14,34 @@ def calculation(operation): # operation is operation_list
                 match element:
                     case "*" | "x" | "×":
                         result = multiplication(operation)
+
                     case "//":
-                        result = euclidean(operation)
+                        try:
+                            if operation[operation.index(element)+1] == "0":
+                                result = 0
+                                raise ZeroDivisionError(display.error_divisionbyzero_print())
+                            result = euclidean(operation)
+                        except ZeroDivisionError as message:
+                            print(message)
+                            return calculation(configure_input(display.calc_input_data_print("")))
+                        
                     case "/" | "÷":
-                        result = division(operation)
+                        try:
+                            if operation[operation.index(element)+1] == "0":
+                                raise ZeroDivisionError(display.error_divisionbyzero_print())
+                            result = division(operation)
+                        except ZeroDivisionError as message:
+                            print(message)
+                            return calculation(configure_input(display.calc_input_data_print("")))
+                    
                     case "%" | "":
-                        result = modulo(operation)
+                        try:
+                            if operation[operation.index(element)+1] == "0":
+                                raise ZeroDivisionError(display.error_divisionbyzero_print())
+                            result = modulo(operation)
+                        except ZeroDivisionError as message:
+                            print(message)
+                            return calculation(configure_input(display.calc_input_data_print("")))
 
         while "+" in operation or "-" in operation:
             for element in operation:
@@ -53,8 +77,8 @@ def sub_operation_treatment(operation):
 
 
 """ DEBUG CALCULATOR """
-input_user_string = input("Veuillez entrer votre opération : ")
-clean_input = configure_input(input_user_string)
-sub_operation_treatment(clean_input)
-final_result = calculation(clean_input)
-print(f"résultat final : {final_result}")
+# input_user_string = input("Veuillez entrer votre opération : ")
+# clean_input = configure_input(input_user_string)
+# sub_operation_treatment(clean_input)
+# final_result = calculation(clean_input)
+# print(f"résultat final : {final_result}")
