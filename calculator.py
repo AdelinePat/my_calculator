@@ -34,7 +34,7 @@ def u_input(): #demand mathematical expression from user
                 case "Q":
                     pass
                 case _:
-                    print(f"{element} ain't no operator bruh")
+                    print(f"{element} ain't no operator bruh", end="\r")
                     continue
         
     if operationB[0].isnumeric()==False:
@@ -49,10 +49,6 @@ def u_input(): #demand mathematical expression from user
                 exit()    
             case _:
                 print(f"DON'T START WITH THAT DISGUSTING {operationB[0]}")
-                try:
-                    operationA.pop(0)
-                except IndexError:
-                    u_input()
     
     
     return operationA 
