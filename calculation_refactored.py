@@ -61,8 +61,8 @@ def sub_operation_treatment(operation):
 
 
 """ TESTING CALCULATOR """
-# input_user_string = input("Veuillez entrer votre opération : ")
-# clean_input = configure_input(input_user_string)
-# sub_operation_treatment(clean_input)
-# final_result = calculation(clean_input)
-# print(f"résultat final : {final_result}")
+input_user_string = input("Veuillez entrer votre opération : ")
+clean_input = configure_input(input_user_string)
+sub_operation_treatment(clean_input)
+final_result = calculation(clean_input)
+print(f"résultat final : {final_result}")

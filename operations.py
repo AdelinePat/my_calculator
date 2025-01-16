@@ -1,6 +1,7 @@
 
 from operation_list import configure_input, update_operation
 
+import sys 
 def multiplication(operation):
     multiplication_index = operation.index("*")
     result = float(operation[multiplication_index-1])*float(operation[multiplication_index+1])
@@ -19,7 +20,7 @@ def division(operation):
       
     except ZeroDivisionError as message:
         print(message)
-        return configure_input()
+        return configure_input(input("Veuillez entrer votre opération : "))
 
 def modulo(operation):
     modulo_index = operation.index("/")
@@ -32,7 +33,7 @@ def modulo(operation):
         
     except ZeroDivisionError as message:
         print(message)
-        return configure_input()
+        return configure_input(input("Veuillez entrer votre opération : "))
 
 def addition(operation):
     addition_index = operation.index("+")
