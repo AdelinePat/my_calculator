@@ -63,18 +63,17 @@ def addition(operation): #for addition
         for element in operation:
             if element=='+':
                 index_of_plus=operation.index(element)
-                try:
-                    operation.insert(0, operation[index_of_plus-1]+operation[index_of_plus+1])
+                try: #handle out of range errors, happens when 2 operators or more are used and one of them is * or / and the other is + or -
+                    operation.insert(index_of_plus, operation[index_of_plus-1]+operation[index_of_plus+1])
                     index_of_plus+=1
                 
                     operation.pop(index_of_plus+1)
-                    operation.pop(index_of_plus-1)
+                    operation.pop(index_of_plus-2)
                     index_of_plus-=1
                     operation.pop(index_of_plus)
                 except IndexError:
                     operation.insert(1, '+')
                     operation.pop(index_of_plus+1)
-                
     return operation
 
 #addition complete ^
@@ -85,12 +84,12 @@ def subtraction(operation):
         for element in operation:
             if element=='-':
                 index_of_plus=operation.index(element)
-                try:
-                    operation.insert(0, operation[index_of_plus-1]-operation[index_of_plus+1])
+                try: #handle out of range errors, happens when 2 operators or more are used and one of them is * or / and the other is + or -
+                    operation.insert(index_of_plus, operation[index_of_plus-1]-operation[index_of_plus+1])
                     index_of_plus+=1
                 
                     operation.pop(index_of_plus+1)
-                    operation.pop(index_of_plus-1)
+                    operation.pop(index_of_plus-2)
                     index_of_plus-=1
                     operation.pop(index_of_plus)
                 except IndexError:
@@ -99,7 +98,7 @@ def subtraction(operation):
     
     return operation
 
-#substraction complete
+#subtraction complete
 
 def multiplication(operation):
     
@@ -107,10 +106,11 @@ def multiplication(operation):
         for element in operation:
             if element=='*':
                 index_of_plus=operation.index(element)
-                operation.insert(0, operation[index_of_plus-1]*operation[index_of_plus+1])
+                
+                operation.insert(index_of_plus, operation[index_of_plus-1]*operation[index_of_plus+1])
                 index_of_plus+=1
                 operation.pop(index_of_plus+1)
-                operation.pop(index_of_plus-1)
+                operation.pop(index_of_plus-2)
                 index_of_plus-=1
                 operation.pop(index_of_plus)
     
@@ -123,13 +123,20 @@ def division(operation):
     while len(operation)>1 and '/' in operation:
         for element in operation:
             if element=='/':
-                index_of_plus=operation.index(element)
-                operation.insert(0, operation[index_of_plus-1]/operation[index_of_plus+1])
-                index_of_plus+=1
-                operation.pop(index_of_plus+1)
-                operation.pop(index_of_plus-1)
-                index_of_plus-=1
-                operation.pop(index_of_plus)
+              
+                try:
+                    index_of_plus=operation.index(element)
+
+                    operation.insert(index_of_plus, operation[index_of_plus-1]/operation[index_of_plus+1])
+                    index_of_plus+=1
+                    operation.pop(index_of_plus+1)
+                    operation.pop(index_of_plus-2)
+                    index_of_plus-=1
+                    operation.pop(index_of_plus)
+                except ZeroDivisionError:
+                    print("Cannot divide by zero. could destroy the universe.")
+                    main()
+                    break
     
     return operation
 
@@ -138,14 +145,20 @@ def division(operation):
 def modulo(operation):
     while len(operation)>1 and '%' in operation:
         for element in operation:
-            if element=='%':
-                index_of_plus=operation.index(element)
-                operation.insert(0, operation[index_of_plus-1]%operation[index_of_plus+1])
-                index_of_plus+=1
-                operation.pop(index_of_plus+1)
-                operation.pop(index_of_plus-1)
-                index_of_plus-=1
-                operation.pop(index_of_plus)
+            try:
+                if element=='%':
+                    index_of_plus=operation.index(element)
+                    operation.insert(index_of_plus, operation[index_of_plus-1]%operation[index_of_plus+1])
+                    index_of_plus+=1
+                    operation.pop(index_of_plus+1)
+                    operation.pop(index_of_plus-2)
+                    index_of_plus-=1
+                    operation.pop(index_of_plus)
+            except ZeroDivisionError:
+                    print("Cannot divide by zero. could destroy the universe.")
+                    main()
+                    break
+
     
     return operation
     
