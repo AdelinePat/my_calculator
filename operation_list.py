@@ -17,6 +17,16 @@ def configure_input(input_user_string):
                 raise Exception(f"{element} n'est pas un nombre !") 
         except Exception as message_1:
             print(message_1)
+        
+        """
+        Search for / followed by / , insert "//" to enable euclidean division in calculation 
+        remove individual / from operation_list
+        """
+        if element == "/" and operation_list[operation_list.index(element)+1] == "/":
+            index_division = operation_list.index(element)
+            operation_list.insert(index_division+2, "//")
+            operation_list.pop(index_division+1)
+            operation_list.pop(index_division)                
 
     try:
         match = re.search(r'(?:[^0-9.+/*%\(\)-]+)', input_user_string)
