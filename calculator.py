@@ -63,12 +63,17 @@ def addition(operation): #for addition
         for element in operation:
             if element=='+':
                 index_of_plus=operation.index(element)
-                operation.insert(0, operation[index_of_plus-1]+operation[index_of_plus+1])
-                index_of_plus+=1
-                operation.pop(index_of_plus+1)
-                operation.pop(index_of_plus-1)
-                index_of_plus-=1
-                operation.pop(index_of_plus)
+                try:
+                    operation.insert(0, operation[index_of_plus-1]+operation[index_of_plus+1])
+                    index_of_plus+=1
+                
+                    operation.pop(index_of_plus+1)
+                    operation.pop(index_of_plus-1)
+                    index_of_plus-=1
+                    operation.pop(index_of_plus)
+                except IndexError:
+                    operation.insert(1, '+')
+                    operation.pop(index_of_plus+1)
                 
     return operation
 
@@ -80,12 +85,17 @@ def subtraction(operation):
         for element in operation:
             if element=='-':
                 index_of_plus=operation.index(element)
-                operation.insert(0, operation[index_of_plus-1]-operation[index_of_plus+1])
-                index_of_plus+=1
-                operation.pop(index_of_plus+1)
-                operation.pop(index_of_plus-1)
-                index_of_plus-=1
-                operation.pop(index_of_plus)
+                try:
+                    operation.insert(0, operation[index_of_plus-1]-operation[index_of_plus+1])
+                    index_of_plus+=1
+                
+                    operation.pop(index_of_plus+1)
+                    operation.pop(index_of_plus-1)
+                    index_of_plus-=1
+                    operation.pop(index_of_plus)
+                except IndexError:
+                    operation.insert(1, '-')
+                    operation.pop(index_of_plus+1)
     
     return operation
 
@@ -162,18 +172,6 @@ def main():
                             result=addition(operation)
                         case '-':
                             result=subtraction(operation)
-            ''' for element in operation:
-                match element:
-                    case '*':
-                        result=multiplication(operation)
-                    case '/':
-                        result=division(operation)
-                    case '+':
-                        result=addition(operation)
-                    case '-':
-                        result=subtraction(operation)
-                    case '%':
-                        result=modulo(operation)'''
         print(result)
 
 main()
