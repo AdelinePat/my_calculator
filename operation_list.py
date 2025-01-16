@@ -4,7 +4,9 @@ import calculator_display as display
 def configure_input(input_user_string):
     input_user_string = input_user_string.replace(" ", "")
     operation_list = re.findall(r'(?:[0-9.]+)|(?:[+/*%\(\)-])', input_user_string) # /!\ this regex accept a number 10.4.5.6.6
-
+    if input_user_string == "off":
+        operation_list = "off"
+        return operation_list
     try:
         if len(operation_list) < 1: # Check if input is empty
             raise Exception(display.error_onlynumber_print())
@@ -44,6 +46,8 @@ def configure_input(input_user_string):
      
     try:
         match_input = re.search(r'(?:[^0-9.+/*%\(\)-]+)', input_user_string)
+        # match_command = re.search(r'(?:^[off]*)', input_user_string)
+
         if bool(match_input):
             raise Exception(display.error_incorrect_input_print(match_input.group())) # TODO create a function for this error too
         return operation_list

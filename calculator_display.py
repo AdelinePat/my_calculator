@@ -209,7 +209,7 @@ def calc_input_data_print(last_input):
         f" {"=" if last_input != "" else " "}{cursor['style_finish']}",
 
         sep="", end="", flush=True)
-    return input(f"{cursor_line(10,calc_padding_left+4)}\033[8n")
+    return input(f"{cursor_line(10,calc_padding_left+4)}\033[8n").lower()
 
 """
 errors display in bottom field, clear field
