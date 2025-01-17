@@ -43,7 +43,9 @@ def main():
                         last_input = raw_input
                         final_result = "error_5_illegalentry"
                     case "error_3_blankinput":
-                        error_display.error_message_print(operation_list)
+                        final_result = last_input = unset
+                        data_display.result_data_print(final_result)
+                        error_display.error_message_print("error_3_blankinput")
                         continue
                     case _:
                         last_input = " ".join([str(element) for element in operation_list.copy()])
