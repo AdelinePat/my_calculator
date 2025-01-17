@@ -1,8 +1,8 @@
 import calc_display.calculator_display as data_display
 import calc_display.error_display as error_display
 import calc_display.set_up_print as set_up_display
-from operation_list import configure_input
-from launch_operations import calculation, sub_operation_treatment
+from operations.operation_list import configure_input
+from operations.launch_operations import calculation, sub_operation_treatment
 
 def main():
     cleared = [["",""],["",""],["",""],["",""]]
