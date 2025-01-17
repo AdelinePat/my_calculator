@@ -1,4 +1,4 @@
-from operation_list import update_operation
+from operations.operation_list import update_operation
 
 def equal(operation):
     result = float(operation[0])

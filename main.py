@@ -1,6 +1,6 @@
 import calculator_display as display
-from operation_list import configure_input
-from launch_operations import calculation, sub_operation_treatment
+from operations.operation_list import configure_input
+from operations.launch_operations import calculation, sub_operation_treatment
 
 def main():
     cleared = [["",""],["",""],["",""],["",""]]

@@ -1,5 +1,5 @@
-from operation_list import configure_input, add_first_operand, update_operation
-from operations import multiplication, division, modulo, addition, soustraction, euclidean, equal
+from operations.operation_list import add_first_operand
+from operations.operations import multiplication, division, modulo, addition, soustraction, euclidean, equal
 
 def calculation(operation): # operation is operation_list
     
