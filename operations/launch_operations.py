@@ -8,28 +8,26 @@ def calculation(operation): # operation is operation_list
         operation = add_first_operand(operation) # add 0 at the beginning of the list if the operation_list starts with an operator
         if operation == "error_1_firstoperand":
             return "error_1_firstoperand"
+        
         while "*" in operation or "/" in operation or "%" in operation or "//" in operation:
             for element in operation:
                 match element:
                     case "*":
                         result = multiplication(operation)
-
                     case "//":
                         try:
                             if operation[operation.index(element)+1] == "0":
                                 raise ZeroDivisionError()
                             result = euclidean(operation)
                         except ZeroDivisionError:
-                            return "error_0_divisionbyzero"
-                        
+                            return "error_0_divisionbyzero"                
                     case "/":
                         try:
                             if operation[operation.index(element)+1] == "0":
                                 raise ZeroDivisionError()
                             result = division(operation)
                         except ZeroDivisionError:
-                            return "error_0_divisionbyzero"
-                    
+                            return "error_0_divisionbyzero"      
                     case "%":
                         try:
                             if operation[operation.index(element)+1] == "0":
@@ -38,7 +36,6 @@ def calculation(operation): # operation is operation_list
                         except ZeroDivisionError:
                             return "error_0_divisionbyzero"
 
-
         while "+" in operation or "-" in operation:
             for element in operation:
                 match element:
@@ -46,6 +43,7 @@ def calculation(operation): # operation is operation_list
                         result = addition(operation)
                     case "-":
                         result = soustraction(operation)
+
     if len(operation) == 1:
         result = equal(operation)
     return result
@@ -55,7 +53,6 @@ Search () , create a sub-list from inside parenthesis
 Calculate operations inside sub-list, insert result inside original-list
 Remove all items inside sub-list + parenthesis from original-list
 """
-
 def sub_operation_treatment(operation):
     while "(" in operation and ")" in operation:
         start_index = operation.index("(")
@@ -76,12 +73,3 @@ def sub_operation_treatment(operation):
             operation.pop(index)
 
         operation.insert(start_index, sub_calculation)
-
-
-
-""" DEBUG CALCULATOR """
-# input_user_string = input("Veuillez entrer votre opération : ")
-# clean_input = configure_input(input_user_string)
-# sub_operation_treatment(clean_input)
-# final_result = calculation(clean_input)
-# print(f"résultat final : {final_result}")
