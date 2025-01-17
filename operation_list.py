@@ -7,22 +7,21 @@ def configure_input(input_user_string):
     if input_user_string == "off":
         operation_list = "off"
         return operation_list
+    
     try:
-        if len(operation_list) < 1: # Check if input is empty
-            raise Exception(display.error_onlynumber_print())
-    except Exception as message:
-        print(message)
-        return configure_input(display.calc_input_data_print(""))
+        if operation_list == []:
+            raise Exception()
+    except Exception:
+        return "error_3_blankinput"
 
     for element in operation_list:
         try:
             test = re.findall(r"\.+", element) # Correct operation_list in case a number 10.4.5.6 is entered
             if len(test) > 1:
-                raise Exception(display.error_incorrect_input_print(element)) # TODO create a function for this error
-        except Exception as message_1:
-            print(message_1)
-            return configure_input(display.calc_input_data_print(""))
-        
+                raise Exception()
+        except Exception:
+            return "error_4_incorrectnumeral"
+      
         """
         Search for / followed by / , insert "//" to enable euclidean division in calculation 
         remove individual / from operation_list
@@ -38,10 +37,9 @@ def configure_input(input_user_string):
                     operation_list.pop(index_division+1)
                     operation_list.pop(index_division)
                 else:
-                    raise Exception(display.error_multiple_operators_print())
-        except Exception as message_2:
-            print(message_2)
-            return configure_input(display.calc_input_data_print(""))
+                    raise Exception()
+        except Exception:
+            return "error_2_multipleoperators"
         
      
     try:
@@ -49,11 +47,10 @@ def configure_input(input_user_string):
         # match_command = re.search(r'(?:^[off]*)', input_user_string)
 
         if bool(match_input):
-            raise Exception(display.error_incorrect_input_print(match_input.group())) # TODO create a function for this error too
+            raise Exception()
         return operation_list
-    except Exception as message:
-        print(message)
-        return configure_input(display.calc_input_data_print(""))
+    except Exception:
+        return "error_5_illegalentry"
 
 
 """
@@ -66,8 +63,8 @@ def add_first_operand(operation_list):
         return operation_list     
     except Exception:
         if operation_list[0] != "+" and operation_list[0] != "-":
-            display.error_1_first_operator_print()
-            return configure_input(display.calc_input_data_print(""))
+            return "error_1st_operand"
+            # return display.error_1_first_operator_print()
         else:
             operation_list.insert(0, "0")
             return operation_list

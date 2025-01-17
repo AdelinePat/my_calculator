@@ -214,19 +214,42 @@ def calc_input_data_print(last_input):
 """
 errors display in bottom field, clear field
 """
+def error_message_print(error_code):
+    match error_code:
+        case "error_0_divisionbyzero":
+            error_0_divisionbyzero_print()
+        case "error_1st_operand":
+            error_1_first_operator_print()
+        case "error_2_multipleoperators":
+            error_2_multiple_operators_print()
+        case "error_3_blankinput":
+            error_3_blank_input_print()
+        case "error_4_incorrectnumeral":
+            error_4_incorrect_numeral_print("hhihi")
+        case "error_5_illegalentry":
+            error_5_illegal_entry_print()
+        case _:
+            error_clear_print
+
 def error_1_first_operator_print():
     print(
         f"{cursor_line(15,calc_padding_left+2)}{cursor['error_message_style_start']}",
         f"{"L'opération doit commencer par +, - ou un nombre !":^{calc_width+1+historic_width}}",
         f"{cursor['style_finish']}", sep="", end="", flush=True)
 
-def error_onlynumber_print():
+def error_2_multiple_operators_print():
+    print(
+        f"{cursor_line(15,calc_padding_left+2)}{cursor['error_message_style_start']}",
+        f"{"Vous avez 2 opérateurs consécutifs !":^{calc_width+1+historic_width}}",
+        f"{cursor['style_finish']}", sep="", end="", flush=True)
+
+def error_3_blank_input_print():
     print(
         f"{cursor_line(15,calc_padding_left+2)}{cursor['error_message_style_start']}",
         f"{"Insérez un calcul !":^{calc_width+1+historic_width}}",
         f"{cursor['style_finish']}", sep="", end="", flush=True)
 
-def error_divisionbyzero_print():
+def error_0_divisionbyzero_print():
     print(
         f"{cursor_line(15,calc_padding_left+2)}{cursor['error_message_style_start']}",
         f"{"Impossible de diviser par 0 !":^{calc_width+1+historic_width}}",
@@ -236,19 +259,16 @@ def error_clear_print():
     print(
         f"{cursor_line(15,calc_padding_left+1)}{" ":^{calc_width+1+historic_width}}",
         sep="", end="", flush=True)
-    
 
-def error_incorrect_input_print(element):
-
+def error_4_incorrect_numeral_print(element):
     message = f"Votre entrée {element} est incorrecte !"
     print(
         f"{cursor_line(15,calc_padding_left+2)}{cursor['error_message_style_start']}",
         f"{message:^{calc_width+1+historic_width}}",
         f"{cursor['style_finish']}", sep="", end="", flush=True)
-    
 
-def error_multiple_operators_print():
+def error_5_illegal_entry_print():
     print(
         f"{cursor_line(15,calc_padding_left+2)}{cursor['error_message_style_start']}",
-        f"{"Vous avez 2 opérateurs consécutifs !":^{calc_width+1+historic_width}}",
+        f"{"Votre calcul contient une entrée inconnue !":^{calc_width+1+historic_width}}",
         f"{cursor['style_finish']}", sep="", end="", flush=True)

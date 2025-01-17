@@ -3,12 +3,16 @@ from operation_list import configure_input, update_operation
 import calculator_display as display
 # from launch_operations import calculation
 # from main import main
-import sys 
+import sys
+
+def equal(operation):
+    result = float(operation[0])
+    return result
+
 def multiplication(operation):
     multiplication_index = operation.index("*")
     result = float(operation[multiplication_index-1])*float(operation[multiplication_index+1])
     update_operation(operation, multiplication_index, result)
-
     return result
 
 def division(operation):
@@ -42,5 +46,4 @@ def soustraction(operation):
     soustraction_index = operation.index("-")
     result = float(operation[soustraction_index-1])-float(operation[soustraction_index+1])
     update_operation(operation, soustraction_index, result)
-
     return result
