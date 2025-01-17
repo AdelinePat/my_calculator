@@ -83,7 +83,15 @@ def addition(operation): #for addition
                     operation.pop(index_of_plus)
                 except IndexError:
                     operation.insert(1, '+')
-                    operation.pop(index_of_plus+1)
+                    if operation[index_of_plus]==operation[index_of_plus+1]:
+                        print("{:>85}".format("result unavailable"))
+                        main()
+                    else:
+                        operation.pop(index_of_plus+1)
+                except TypeError:
+                    print("{:>85}".format("result unavailable"), "\033[K")
+                    main()
+
     return operation
 
 #addition complete ^
@@ -104,7 +112,14 @@ def subtraction(operation):
                     operation.pop(index_of_plus)
                 except IndexError:
                     operation.insert(1, '-')
-                    operation.pop(index_of_plus+1)
+                    if operation[index_of_plus]==operation[index_of_plus+1]:
+                        print("{:>85}".format("result unavailable"))
+                        main()
+                    else:
+                        operation.pop(index_of_plus+1)
+                except TypeError:
+                    print("{:>85}".format("result unavailable"), "\033[K")
+                    main()
     
     return operation
 
@@ -125,7 +140,7 @@ def multiplication(operation):
                     index_of_plus-=1
                     operation.pop(index_of_plus)
                 except (IndexError, TypeError):
-                    print("{:>85}".format("please try again"), "\033[K")
+                    print("{:>85}".format("result unavailable"), "\033[K")
                     main()
     
     return operation
@@ -137,7 +152,6 @@ def division(operation):
     while len(operation)>1 and '/' in operation:
         for element in operation:
             if element=='/':
-              
                 try:
                     index_of_plus=operation.index(element)
 
@@ -148,11 +162,11 @@ def division(operation):
                     index_of_plus-=1
                     operation.pop(index_of_plus)
                 except ZeroDivisionError:
-                    print("{:>105}".format("Cannot divide by zero. could destroy the universe."))
+                    print("{:>105}".format("Cannot divide by zero."))
                     main()
                     break
                 except (IndexError, TypeError):
-                    print("{:>85}".format("please try again"), "\033[K")
+                    print("{:>85}".format("result unavailable"), "\033[K")
                     main()
     
     return operation
@@ -172,7 +186,7 @@ def modulo(operation):
                     index_of_plus-=1
                     operation.pop(index_of_plus)
             except ZeroDivisionError:
-                    print("{:>100}".format("Cannot divide by zero. could destroy the universe."))
+                    print("{:>100}".format("Cannot divide by zero."))
                     main()
                     break
 
@@ -207,5 +221,8 @@ def main():
     except UnboundLocalError:
         print("{:>85}".format("result unavailable"))
         main()
+    except KeyboardInterrupt:
+        print("{:>150}".format("power off..."))
+        exit()
 
 main()
