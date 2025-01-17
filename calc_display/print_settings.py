@@ -31,7 +31,6 @@ box = {
     "angle_bl" : "╰",
     "angle_br" : "╯",
 }
-
 cursor = {
     "save" : "\033[s",
     "load" : "\033[u",
@@ -39,7 +38,7 @@ cursor = {
     "line_clear" : "\033[2K",
     "light_line_clear" : "\033[0K",
     "light_clear" : "\033[0J",
-    "heavy_clear" : "\033[1;0H\033[0J",
+    "heavy_clear" : "\033[3J\033[1;0H\033[0J",
 
     "bold_start" : "\033[1m",
     "dim_start" : "\033[2m",
@@ -58,8 +57,6 @@ cursor = {
     "happy_message_style_start" : "\033[0;6;1;38;5;201m",
 
     "style_finish" : "\033[0m"
-    # "color_end" : "\033[39m",
-    # "red_start" : "\033[31m",
 }
 def cursor_line(y,x=0):
     coordinate = "\033[" + str(y+ padding_top) + ";" + str(x) + "H"

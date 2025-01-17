@@ -14,7 +14,6 @@ def main():
     set_up_display.setup_printable_fields()
     try:
         while True:
-            calculation_completed = False
             raw_input = data_display.calc_input_data_print(last_input)
             match raw_input:
                 case "off":
@@ -50,11 +49,8 @@ def main():
                         last_input = " ".join([str(element) for element in operation_list.copy()])
                         sub_operation_treatment(operation_list)
                         final_result = calculation(operation_list)
-                        calculation_completed = True
                 data_display.result_data_print(final_result)
                 error_display.error_message_print(final_result)
-                if calculation_completed:
-                    error_display.legal_operation_print()
                 data_display.historic_data_print(historic)
                 historic.insert(0,[last_input,final_result])
                 historic.pop(4)

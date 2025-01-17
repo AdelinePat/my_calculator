@@ -1,7 +1,7 @@
 import calc_display.print_settings as calc
 from calc_display.print_settings import cursor_line, cursor
 '''
-errors display in bottom field, clear field
+    errors display in bottom field, else happy message
 '''
 def error_message_print(error_code):
     match error_code:
@@ -20,7 +20,7 @@ def error_message_print(error_code):
         case "error_6_unknown":
             error_6_unknown()
         case _:
-            error_clear_print()
+            legal_operation_print()
 
 def legal_operation_print():
     print(

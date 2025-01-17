@@ -13,7 +13,7 @@ def clear_print():
 '''
 def setup_printable_fields():
     print(
-        f"{cursor['calc_box_style_start']}",
+        f"{cursor['heavy_clear']}{cursor['calc_box_style_start']}",
 
         f"{cursor_line(1)}{" ":^{calc.padding_left}}{calc.box['angle_tl']}",
         f"{"":{calc.box['horizontal']}^{calc.width}}{calc.box['vertical_bis_v']}",

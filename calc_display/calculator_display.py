@@ -1,8 +1,8 @@
 import calc_display.print_settings as calc
 from calc_display.print_settings import cursor_line, cursor
-"""
-data display within blank fields
-"""
+'''
+    data display within blank fields
+'''
 def historic_data_print(historic):
     for row in range(0,4):
         x_coord = row*3+3
@@ -37,6 +37,5 @@ def calc_input_data_print(last_input):
         f"{cursor_line(9, calc.padding_left+3)}{cursor['dim_start']}",
         f"{last_input[:calc.width-6]:>{calc.width-4}}",
         f" {"=" if last_input != "" else " "}{cursor['style_finish']}",
-
         sep="", end="", flush=True)
     return input(f"{cursor_line(10,calc.padding_left+4)}\033[8n").lower()
