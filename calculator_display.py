@@ -55,6 +55,7 @@ cursor = {
     "instructions_style_start" : "\033[0;37m",
     "result_message_style_start" : "\033[0;1;37m",
     "error_message_style_start" : "\033[0;6;1;31m",
+    "happy_message_style_start" : "\033[0;6;1;38;5;201m",
 
     "style_finish" : "\033[0m"
     # "color_end" : "\033[39m",
@@ -144,7 +145,7 @@ def setup_printable_fields():
         
         f"{cursor_line(13)}{" ":^{calc_padding_left}}{calc_box['vertical_>']}",
         f"{"":{calc_box['horizontal']}^{calc_width}}{calc_box['vertical_bis_^']}",
-        f"{"":{calc_box['horizontal']}^{historic_width}}{calc_box['vertical']}",
+        f"{"":{calc_box['horizontal']}^{historic_width}}{calc_box['vertical_<']}",
         f"{cursor['light_line_clear']}",
         
         f"{cursor_line(14)}{" ":^{calc_padding_left}}{calc_box['vertical']}",
@@ -218,18 +219,30 @@ def error_message_print(error_code):
     match error_code:
         case "error_0_divisionbyzero":
             error_0_divisionbyzero_print()
-        case "error_1st_operand":
+        case "error_1_firstoperand":
             error_1_first_operator_print()
         case "error_2_multipleoperators":
             error_2_multiple_operators_print()
         case "error_3_blankinput":
             error_3_blank_input_print()
         case "error_4_incorrectnumeral":
-            error_4_incorrect_numeral_print("hhihi")
+            error_4_incorrect_numeral_print()
         case "error_5_illegalentry":
             error_5_illegal_entry_print()
         case _:
-            error_clear_print
+            error_clear_print()
+
+def legal_operation_print():
+    print(
+        f"{cursor_line(15,calc_padding_left+2)}{cursor['happy_message_style_start']}",
+        f"{"Ce calcul est possible !":^{calc_width+1+historic_width}}",
+        f"{cursor['style_finish']}", sep="", end="", flush=True)
+
+def error_0_divisionbyzero_print():
+    print(
+        f"{cursor_line(15,calc_padding_left+2)}{cursor['error_message_style_start']}",
+        f"{"Impossible de diviser par 0 !":^{calc_width+1+historic_width}}",
+        f"{cursor['style_finish']}", sep="", end="", flush=True)
 
 def error_1_first_operator_print():
     print(
@@ -249,26 +262,27 @@ def error_3_blank_input_print():
         f"{"Insérez un calcul !":^{calc_width+1+historic_width}}",
         f"{cursor['style_finish']}", sep="", end="", flush=True)
 
-def error_0_divisionbyzero_print():
-    print(
-        f"{cursor_line(15,calc_padding_left+2)}{cursor['error_message_style_start']}",
-        f"{"Impossible de diviser par 0 !":^{calc_width+1+historic_width}}",
-        f"{cursor['style_finish']}", sep="", end="", flush=True)
-
-def error_clear_print():
-    print(
-        f"{cursor_line(15,calc_padding_left+1)}{" ":^{calc_width+1+historic_width}}",
-        sep="", end="", flush=True)
-
-def error_4_incorrect_numeral_print(element):
-    message = f"Votre entrée {element} est incorrecte !"
+def error_4_incorrect_numeral_print():
+    message = f"Votre entrée contient un nombre incorrect !"
     print(
         f"{cursor_line(15,calc_padding_left+2)}{cursor['error_message_style_start']}",
         f"{message:^{calc_width+1+historic_width}}",
         f"{cursor['style_finish']}", sep="", end="", flush=True)
 
 def error_5_illegal_entry_print():
+    message = f"Votre calcul contient une entrée interdite !"
     print(
         f"{cursor_line(15,calc_padding_left+2)}{cursor['error_message_style_start']}",
-        f"{"Votre calcul contient une entrée inconnue !":^{calc_width+1+historic_width}}",
+        f"{message:^{calc_width+1+historic_width}}",
         f"{cursor['style_finish']}", sep="", end="", flush=True)
+
+def error_6_unknown():
+    print(
+        f"{cursor_line(15,calc_padding_left+2)}{cursor['error_message_style_start']}",
+        f"{"Une erreur inconnue est survenue":^{calc_width+1+historic_width}}",
+        f"{cursor['style_finish']}", sep="", end="", flush=True)
+
+def error_clear_print():
+    print(
+        f"{cursor_line(15,calc_padding_left+2)}{" ":^{calc_width+1+historic_width}}",
+        sep="", end="", flush=True)

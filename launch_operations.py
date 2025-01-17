@@ -1,14 +1,13 @@
 from operation_list import configure_input, add_first_operand, update_operation
 from operations import multiplication, division, modulo, addition, soustraction, euclidean, equal
-import calculator_display as display
-
 
 def calculation(operation): # operation is operation_list
     
     while len(operation) > 1:
         
         operation = add_first_operand(operation) # add 0 at the beginning of the list if the operation_list starts with an operator
-
+        if operation == "error_1_firstoperand":
+            return "error_1_firstoperand"
         while "*" in operation or "/" in operation or "%" in operation or "//" in operation:
             for element in operation:
                 match element:
@@ -68,6 +67,11 @@ def sub_operation_treatment(operation):
         sub_operation.pop(0) # deleting parenthesis "(" from sub_operation list
      
         sub_calculation = calculation(sub_operation)
+        match sub_calculation:
+            case "error_0_divisionbyzero":
+                return "error_0_divisionbyzero"
+            case "error_1_firstoperand":
+                return "error_1_firstoperand"
         for index in reversed(range(start_index, end_index+1)):
             operation.pop(index)
 

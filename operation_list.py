@@ -1,12 +1,8 @@
 import re, sys
-import calculator_display as display
 
 def configure_input(input_user_string):
     input_user_string = input_user_string.replace(" ", "")
     operation_list = re.findall(r'(?:[0-9.]+)|(?:[+/*%\(\)-])', input_user_string) # /!\ this regex accept a number 10.4.5.6.6
-    if input_user_string == "off":
-        operation_list = "off"
-        return operation_list
     
     try:
         if operation_list == []:
@@ -63,8 +59,7 @@ def add_first_operand(operation_list):
         return operation_list     
     except Exception:
         if operation_list[0] != "+" and operation_list[0] != "-":
-            return "error_1st_operand"
-            # return display.error_1_first_operator_print()
+            return "error_1_firstoperand"
         else:
             operation_list.insert(0, "0")
             return operation_list

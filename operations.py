@@ -1,9 +1,4 @@
-
-from operation_list import configure_input, update_operation
-import calculator_display as display
-# from launch_operations import calculation
-# from main import main
-import sys
+from operation_list import update_operation
 
 def equal(operation):
     result = float(operation[0])
@@ -21,7 +16,6 @@ def division(operation):
     update_operation(operation, division_index, result)
     return result
 
-
 def modulo(operation):
     modulo_index = operation.index("%")
     result = float(operation[modulo_index-1])%float(operation[modulo_index+1])
@@ -34,12 +28,10 @@ def euclidean(operation):
     update_operation(operation, euclidean_index, result)   
     return result
 
-
 def addition(operation):
     addition_index = operation.index("+")
     result = float(operation[addition_index-1])+float(operation[addition_index+1])
     update_operation(operation, addition_index, result)
-
     return result
 
 def soustraction(operation):
