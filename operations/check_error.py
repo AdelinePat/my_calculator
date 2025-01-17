@@ -6,15 +6,11 @@ def blank_input_error(operation_list):
             raise Exception()
         return operation_list
     except Exception:
-        return "error_3_blankinput"
-    
-    
+        return "error_3_blankinput"    
 
 def illegal_entry_input(operation_list, input_user_string):
     try:
         match_input = re.search(r'(?:[^0-9.+/*%\(\)-]+)', input_user_string)
-        # match_command = re.search(r'(?:^[off]*)', input_user_string)
-
         if bool(match_input):
             raise Exception()
         return operation_list   
@@ -36,7 +32,6 @@ remove individual / from operation_list
 
 Else raise exception
 """
-
 def is_operation_euclidean(element, operation_list):
         operator_list = ["+", "-", "/", "//", "%", "*"]
         try:
