@@ -5,9 +5,11 @@ os.system('cls')
 def u_input(): #demand mathematical expression from user
 
     
-
-    start=input("{:>100}".format("type in your calculation ('q' to power off)>>")).strip().upper()
-
+    print("\033[H")
+    start=input("{:>100}".format("type in your calculation ('q' to power off, 'c' to clear)>>")).strip().upper()
+    print(f"\033[{1};1H")
+    print("\033[K")
+    
     operationB=re.findall(r"[\d]+|[\D]", start)
 
     operationA=[]
@@ -33,23 +35,32 @@ def u_input(): #demand mathematical expression from user
                     operationA.append(element)
                 case "Q":
                     pass
+                case "C":
+                    pass
                 case _:
-                    print(f"{element} ain't no operator bruh", end="\r")
                     continue
+    try:    
+        if operationB[0].isnumeric()==False:
+            
+            match operationB[0]:
+                case '+':
+                    operationA.insert(0, float(0))
+                    
+                case '-':
+                    operationA.insert(0, float(0))
+                case 'Q':
+                    print("{:>85}".format("power off..."))
+                    exit()
+                case 'C':
+                    print("\033[0J")   
+                    main() 
+                case _:
+                    print("{:>95}".format(f"{operationB[0]} is invalid, Removed automatically"), "\033[K")
+                    #operationA.pop(0)
+    except IndexError:
+        print("{:>85}".format("your input is empty"))
+        main()            
         
-    if operationB[0].isnumeric()==False:
-        match operationB[0]:
-            case '+':
-                operationA.insert(0, float(0))
-                
-            case '-':
-                operationA.insert(0, float(0))
-            case 'Q':
-                print("{:>85}".format("power off..."))
-                exit()    
-            case _:
-                print(f"DON'T START WITH THAT DISGUSTING {operationB[0]}")
-    
     
     return operationA 
 
@@ -104,14 +115,18 @@ def multiplication(operation):
     while len(operation)>1 and '*' in operation:
         for element in operation:
             if element=='*':
-                index_of_plus=operation.index(element)
-                
-                operation.insert(index_of_plus, operation[index_of_plus-1]*operation[index_of_plus+1])
-                index_of_plus+=1
-                operation.pop(index_of_plus+1)
-                operation.pop(index_of_plus-2)
-                index_of_plus-=1
-                operation.pop(index_of_plus)
+                try:
+                    index_of_plus=operation.index(element)
+                    
+                    operation.insert(index_of_plus, operation[index_of_plus-1]*operation[index_of_plus+1])
+                    index_of_plus+=1
+                    operation.pop(index_of_plus+1)
+                    operation.pop(index_of_plus-2)
+                    index_of_plus-=1
+                    operation.pop(index_of_plus)
+                except (IndexError, TypeError):
+                    print("{:>85}".format("please try again"), "\033[K")
+                    main()
     
     return operation
 
@@ -133,9 +148,12 @@ def division(operation):
                     index_of_plus-=1
                     operation.pop(index_of_plus)
                 except ZeroDivisionError:
-                    print("Cannot divide by zero. could destroy the universe.")
+                    print("{:>105}".format("Cannot divide by zero. could destroy the universe."))
                     main()
                     break
+                except (IndexError, TypeError):
+                    print("{:>85}".format("please try again"), "\033[K")
+                    main()
     
     return operation
 
@@ -154,7 +172,7 @@ def modulo(operation):
                     index_of_plus-=1
                     operation.pop(index_of_plus)
             except ZeroDivisionError:
-                    print("Cannot divide by zero. could destroy the universe.")
+                    print("{:>100}".format("Cannot divide by zero. could destroy the universe."))
                     main()
                     break
 
@@ -185,7 +203,7 @@ def main():
                                 result=addition(operation)
                             case '-':
                                 result=subtraction(operation)
-            print("{:>80}".format(str(result)))
+            print("{:>85}".format(str(result)), "\033[J")
     except UnboundLocalError:
         print("{:>85}".format("result unavailable"))
         main()
