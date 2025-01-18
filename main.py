@@ -33,34 +33,37 @@ def main():
             try:
                 operation_list = configure_input(raw_input)
                 match operation_list:
-                    case "error_4_incorrectnumeral":
-                        last_input = raw_input
-                        final_result="error_4_incorrectnumeral"
                     case "error_2_multipleoperators":
                         last_input = raw_input
                         final_result = "error_2_multipleoperators"
+                    case "error_3_blankinput":
+                        last_input = None
+                        final_result = "error_3_blankinput"
+                    case "error_4_incorrectnumeral":
+                        last_input = raw_input
+                        final_result="error_4_incorrectnumeral"
                     case "error_5_illegalentry":
                         last_input = raw_input
                         final_result = "error_5_illegalentry"
-                    case "error_3_blankinput":
-                        final_result = last_input = unset
-                        data_display.result_data_print(final_result)
-                        error_display.error_message_print("error_3_blankinput")
-                        continue
                     case _:
                         last_input = " ".join([str(element) for element in operation_list.copy()])
                         sub_operation_treatment(operation_list)
                         final_result = calculation(operation_list)
-                data_display.result_data_print(final_result)
-                error_display.error_message_print(final_result)
-                data_display.historic_data_print(historic)
-                historic.insert(0,[last_input,final_result])
-                historic.pop(4)
             except Exception:
                 last_input = raw_input
                 final_result = "error_6_unknown"
+            finally:
+                data_display.result_data_print(final_result)
                 error_display.error_message_print(final_result)
+                data_display.historic_data_print(historic)
+                if last_input == None:
+                    final_result = unset
+                    last_input = unset
+                    continue
+                historic.insert(0,[last_input,final_result])
+                historic.pop(4)
     except KeyboardInterrupt:
         set_up_display.clear_print()
         exit()
+
 main()
