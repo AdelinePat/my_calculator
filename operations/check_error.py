@@ -25,13 +25,11 @@ def ip_adress_is_not_number(element):
     except Exception:
         return "error_4_incorrectnumeral"
     
-    
-"""
+'''
 Search for / followed by / , insert "//" to enable euclidean division in calculation 
 remove individual / from operation_list
-
 Else raise exception
-"""
+'''
 def is_operation_euclidean(element, operation_list):
         operator_list = ["+", "-", "/", "//", "%", "*"]
         try:

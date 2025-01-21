@@ -28,8 +28,6 @@ def main():
                     continue
                 case _:
                     set_up_display.setup_printable_fields()
-                    data_display.result_data_print(final_result)
-                    data_display.historic_data_print(historic)
             try:
                 operation_list = configure_input(raw_input)
                 match operation_list:

@@ -5,7 +5,8 @@ def calculation(operation): # operation is operation_list
     
     while len(operation) > 1:
         
-        operation = add_first_operand(operation) # add 0 at the beginning of the list if the operation_list starts with an operator
+        '''add 0 at the beginning of the list if the operation_list starts with an operator'''
+        operation = add_first_operand(operation)
         if operation == "error_1_firstoperand":
             return "error_1_firstoperand"
         
@@ -48,11 +49,11 @@ def calculation(operation): # operation is operation_list
         result = equal(operation)
     return result
 
-"""
+'''
 Search () , create a sub-list from inside parenthesis 
 Calculate operations inside sub-list, insert result inside original-list
 Remove all items inside sub-list + parenthesis from original-list
-"""
+'''
 def sub_operation_treatment(operation):
     while "(" in operation and ")" in operation:
         start_index = operation.index("(")
